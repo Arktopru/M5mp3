@@ -1,6 +1,6 @@
 # M5mp3
 
-Это приложение для M5Stack Cardputer
+Это приложение для [M5Stack Cardputer](https://docs.m5stack.com/en/core/Cardputer%20V1.1)
 
 Плеер mp3 в стиле winamp
 
