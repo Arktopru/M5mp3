@@ -125,9 +125,6 @@ void draw() {
     sprite.fillRect(148, 14, 86, 42, BLACK);
     sprite.fillRect(148, 59, 86, 16, BLACK);
 
-    sprite.fillTriangle(162, 18, 162, 26, 168, 22, GREEN);
-    sprite.fillRect(162, 30, 6, 6, RED);
-
     sprite.drawFastVLine(143, 0, 135, light);
 
     sprite.drawFastVLine(238, 0, 135, light);
@@ -136,21 +133,15 @@ void draw() {
     sprite.drawFastHLine(148, 14, 86, light);
 
     //buttons
-    for (int i = 0; i < 4; i++)
+    for (int i = 0; i < 4; i++) {
       sprite.fillRoundRect(148 + (i * 22), 94, 18, 18, 3, grays[4]);
+    }
 
     //button icons
     sprite.fillRect(220, 104, 8, 2, grays[13]);
     sprite.fillRect(220, 108, 8, 2, grays[13]);
     sprite.fillTriangle(228, 102, 228, 106, 231, 105, grays[13]);
     sprite.fillTriangle(220, 106, 220, 110, 217, 109, grays[13]);
-
-    if (!stoped) {
-      sprite.fillRect(152, 104, 3, 6, grays[13]);
-      sprite.fillRect(157, 104, 3, 6, grays[13]);
-    } else {
-      sprite.fillTriangle(156, 102, 156, 110, 160, 106, grays[13]);
-    }
 
     //volume bar
     sprite.fillRoundRect(172, 82, 60, 3, 2, YELLOW);
@@ -168,70 +159,91 @@ void draw() {
 
     //graph
     for (int i = 0; i < 14; i++) {
-      if (!stoped)
-        g[i] = random(1, 5);
-      for (int j = 0; j < g[i]; j++)
-        sprite.fillRect(172 + (i * 4), 50 - j * 3, 3, 2, grays[4]);
-    }
 
+      if (!stoped) {
+        g[i] = random(1, 5);
+      }
+
+      for (int j = 0; j < g[i]; j++) {
+        sprite.fillRect(172 + (i * 4), 50 - j * 3, 3, 2, grays[4]);
+      }
+    }
     sprite.setTextFont(0);
     sprite.setTextDatum(0);
 
+    if (n < 5) {
 
-    if (n < 5)
       for (int i = 0; i < 10; i++) {
-        if (i == n) sprite.setTextColor(WHITE, BLACK);
-        else sprite.setTextColor(GREEN, BLACK);
+
+        if (i == n) {
+          sprite.setTextColor(WHITE, BLACK);
+        } else {
+          sprite.setTextColor(GREEN, BLACK);
+        }
+
         if (i < fileCount)
           sprite.drawString(audioFiles[i].substring(1, 20), 8, 10 + (i * 12));
       }
-
+    }
     int yos = 0;
-    if (n >= 5)
+
+    if (n >= 5) {
+
       for (int i = n - 5; i < n - 5 + 10; i++) {
-        if (i == n) sprite.setTextColor(WHITE, BLACK);
-        else sprite.setTextColor(GREEN, BLACK);
-        if (i < fileCount)
+
+        if (i == n) {
+          sprite.setTextColor(WHITE, BLACK);
+        } else {
+          sprite.setTextColor(GREEN, BLACK);
+        }
+
+        if (i < fileCount) {
           sprite.drawString(audioFiles[i].substring(1, 20), 8, 10 + (yos * 12));
+        }
         yos++;
       }
-
+    }
     sprite.setTextColor(grays[1], gray);
-    sprite.drawString("WINAMP", 150, 4);
+    sprite.drawString("M5mp3", 150, 4);
     sprite.setTextColor(grays[2], gray);
-    sprite.drawString("LIST", 58, 0);
+    sprite.drawString("FILES", 58, 0);
     sprite.setTextColor(grays[4], gray);
     sprite.drawString("VOL", 150, 80);
     sprite.drawString("LIG", 150, 122);
 
-    if (isPlaying) {
+    if (!stoped) {
       sprite.setTextColor(grays[8], BLACK);
       sprite.drawString("P", 152, 18);
       sprite.drawString("L", 152, 27);
       sprite.drawString("A", 152, 36);
       sprite.drawString("Y", 152, 45);
+
+      sprite.fillTriangle(162, 18, 162, 26, 168, 22, GREEN);
     } else {
       sprite.setTextColor(grays[8], BLACK);
       sprite.drawString("S", 152, 18);
       sprite.drawString("T", 152, 27);
       sprite.drawString("O", 152, 36);
       sprite.drawString("P", 152, 45);
-    }
 
+      sprite.fillRect(162, 30, 6, 6, RED);
+    }
     sprite.setTextColor(GREEN, BLACK);
     sprite.setFreeFont(&DSEG7_Classic_Mini_Regular_16);
-    if (!stoped)
+
+    if (!stoped) {
       sprite.drawString(rtc.getTime().substring(3, 8), 172, 18);
+    }
     sprite.setTextFont(0);
-
     int percent = 0;
-    if (analogRead(10) > 2390)
-      percent = 100;
-    else if (analogRead(10) < 1400)
-      percent = 1;
-    else
-      percent = map(analogRead(10), 1400, 2390, 1, 100);
 
+    if (analogRead(10) > 2390) {
+      percent = 100;
+    } else if (analogRead(10) < 1400) {
+      percent = 1;
+    } else {
+      percent = map(analogRead(10), 1400, 2390, 1, 100);
+    }
     sprite.setTextDatum(3);
     sprite.drawString(String(percent) + "%", 220, 121);
 
@@ -247,23 +259,33 @@ void draw() {
 
     spr.fillSprite(BLACK);
     spr.setTextColor(GREEN, BLACK);
-    if (!stoped)
-      spr.drawString(audioFiles[n].substring(1, audioFiles[n].length()), textPos, 4);
-    textPos = textPos - 2;
-    if (textPos < -300) textPos = 90;
-    spr.pushSprite(&sprite, 148, 59);
 
+    if (!stoped) {
+      spr.drawString(audioFiles[n].substring(1, audioFiles[n].length()), textPos, 4);
+    }
+    textPos = textPos - 2;
+
+    if (textPos < -300) {
+      textPos = 90;
+    }
+    spr.pushSprite(&sprite, 148, 59);
     sprite.pushSprite(0, 0);
   }
   graphSpeed++;
-  if (graphSpeed == 4) graphSpeed = 0;
+
+  if (graphSpeed == 4) {
+    graphSpeed = 0;
+  }
 }
 
 void Task_TFT(void *pvParameters) {
+
   while (1) {
     M5Cardputer.update();
+
     // Check for key press events
     if (M5Cardputer.Keyboard.isChange()) {
+
       if (M5Cardputer.Keyboard.isKeyPressed('a')) {
         isPlaying = !isPlaying;
         stoped = !stoped;
@@ -273,12 +295,18 @@ void Task_TFT(void *pvParameters) {
         isPlaying = false;
         volUp = true;
         volume = volume + 5;
-        if (volume > 20) volume = 5;
+
+        if (volume > 20) {
+          volume = 5;
+        }
       }
 
       if (M5Cardputer.Keyboard.isKeyPressed('l')) {
         bri++;
-        if (bri == 5) bri = 0;
+
+        if (bri == 5) {
+          bri = 0;
+        }
         M5Cardputer.Display.setBrightness(brightness[bri]);
       }
 
@@ -287,7 +315,10 @@ void Task_TFT(void *pvParameters) {
         isPlaying = false;
         textPos = 90;
         n++;
-        if (n >= fileCount) n = 0;
+
+        if (n >= fileCount) {
+          n = 0;
+        }
         nextS = 1;
       }
 
@@ -296,20 +327,27 @@ void Task_TFT(void *pvParameters) {
         isPlaying = false;
         textPos = 90;
         n--;
-        if (n < 0) n = fileCount - 1;
+
+        if (n < 0) {
+          n = fileCount - 1;
+        }
         nextS = 1;
       }
 
       if (M5Cardputer.Keyboard.isKeyPressed(';')) {
         n--;
-        if (n >= fileCount)
+
+        if (n >= fileCount) {
           n = 0;
+        }
       }
 
       if (M5Cardputer.Keyboard.isKeyPressed('.')) {
         n++;
-        if (n < 0)
+
+        if (n < 0) {
           n = fileCount - 1;
+        }
       }
 
       if (M5Cardputer.Keyboard.isKeyPressed(KEY_ENTER)) {
@@ -319,8 +357,6 @@ void Task_TFT(void *pvParameters) {
         textPos = 90;
         nextS = 1;
       }
-
-
 
       if (M5Cardputer.Keyboard.isKeyPressed('b')) {
         resetClock();
@@ -353,8 +389,10 @@ void Task_Audio(void *pvParameters) {
 
     if (isPlaying) {
       while (isPlaying) {
-        if (!stoped)
-          audio.loop();                       // This keeps the audio playback running
+
+        if (!stoped) {
+          audio.loop();  // This keeps the audio playback running
+        }
         vTaskDelay(10 / portTICK_PERIOD_MS);  // Add a small delay to prevent task hogging
       }
     } else {
@@ -420,6 +458,8 @@ void audio_eof_mp3(const char *info) {
   Serial.print("eof_mp3     ");
   Serial.println(info);
   n++;
-  if (n == fileCount) n = 0;
+  if (n == fileCount) {
+    n = 0;
+  }
   audio.connecttoFS(SD, audioFiles[n].c_str());
 }

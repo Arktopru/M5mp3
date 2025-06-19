@@ -31,6 +31,8 @@
 - V - громкость
 - L - яркость экрана
 
-![На Cardputer](images/IMG_7213.jpeg)
+![На Cardputer](images/IMG_7215.jpeg)
 
-![Экран приложения крупно](images/IMG_7214.jpeg)
+![Экран приложения крупно PLAY](images/IMG_7216.jpeg)
+
+![Экран приложения крупно STOP](images/IMG_7217.jpeg)
